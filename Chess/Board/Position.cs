@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace Board
+namespace Chess.Board
 {
-    internal class Position
+    public class Position
     {
         public int Line { get; set; }
         public int Row { get; set; } 

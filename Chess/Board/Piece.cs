@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Board
+namespace Chess.Board
 {
-    internal class Piece
+    public class Piece
     {
         public Position Pos { get; set; }
         public Colors Color { get; protected set; }
         public int Moves { get; protected set; }
-        public Board NewBoard { get; set; }
-        public Piece(Position position, Colors color, Board board)
+        public ChessBoard Board { get; set; }
+        public Piece(Colors color, ChessBoard board)
         {
-            Pos = position;
             Color = color;
-            NewBoard = board;
+            Board = board;
             Moves = 0;
         }
     }

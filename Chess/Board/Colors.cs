@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace Board
+namespace Chess.Board
 {
-    internal enum Colors
+    public enum Colors
     {
         Black,
         White
