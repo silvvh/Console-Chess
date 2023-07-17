@@ -20,10 +20,41 @@ namespace Chess.Board
             return Pieces[lines, rows];
         }
 
+        public Piece GetPiece(Position pos)
+        {
+            return Pieces[pos.Line, pos.Row];
+        }
+
         public void InsertPiece(Position position, Piece piece)
         {
+            if (!FreePosition(position))
+            {
+                throw new BoardException("This position is being used.");
+            }
             Pieces[position.Line, position.Row] = piece;
             piece.Pos = position;
+        }
+
+        public bool FreePosition(Position pos)
+        {
+            ValidPosition(pos);
+            return GetPiece(pos) == null;
+        }
+        public bool ValidPosition(Position pos)
+        {
+            if (pos.Line < 0 || pos.Row < 0 || pos.Line >= Lines || pos.Row >= Rows)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void ValidatePosition(Position pos)
+        {
+            if (!ValidPosition(pos))
+            {
+                throw new BoardException("Invalid position.");
+            }
         }
     }
 }

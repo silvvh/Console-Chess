@@ -1,4 +1,5 @@
 ﻿using Chess.Board;
+using Chess.ChessGame;
 
 namespace Chess
 {
@@ -6,22 +7,31 @@ namespace Chess
     {
         public static void Create()
         {
-
-            ChessBoard b = new ChessBoard();
-            for (int i = 0; i < 8; i++)
+            try
             {
-                for (int j = 0; j < 8; j++)
+                ChessBoard b = new ChessBoard();
+                b.InsertPiece(new Position(0, 0), new Bishop(Colors.Black, b));
+                b.InsertPiece(new Position(0, 0), new Queen(Colors.Black, b));
+                for (int i = 0; i < 8; i++)
                 {
-                    if (b.GetPiece(i,j) == null)
+                    for (int j = 0; j < 8; j++)
                     {
-                        Console.Write(" - ");
+                        if (b.GetPiece(i, j) == null)
+                        {
+                            Console.Write(" - ");
+                        }
+                        else
+                        {
+                            Console.Write(b.GetPiece(i, j));
+                        }
                     }
-                    else
-                    {
-                        Console.Write(" P ");
-                    }
+
+                    Console.Write("\n");
                 }
-                Console.Write("\n");
+            }
+            catch (BoardException e)
+            {
+                Console.WriteLine("Position error: " + e.Message);
             }
         }
     }

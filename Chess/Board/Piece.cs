@@ -8,7 +8,7 @@ namespace Chess.Board
 {
     public class Piece
     {
-        public Position Pos { get; set; }
+        public Position? Pos { get; set; }
         public Colors Color { get; protected set; }
         public int Moves { get; protected set; }
         public ChessBoard Board { get; set; }

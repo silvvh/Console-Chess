@@ -9,11 +9,12 @@ namespace Chess.ChessGame
         public King(Colors color, ChessBoard chessBoard) : base(color, chessBoard)
         {
             Color = color;
-            Board =  chessBoard;
+            Board = chessBoard;
         }
 
         public override string ToString()
         {
-            return "K";
+            return " K ";
         }
     }
+}

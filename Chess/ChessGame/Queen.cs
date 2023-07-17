@@ -10,6 +10,6 @@ public class Queen : Piece
 
     public override string ToString()
     {
-        return "Q";
+        return " Q ";
     }
 }
