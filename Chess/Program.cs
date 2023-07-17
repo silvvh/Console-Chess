@@ -1,10 +1,13 @@
-﻿namespace Chess
+﻿using Board;
+
+namespace Chess
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Position P = new Position(2, 0);
+            Console.WriteLine(P);
         }
     }
 }
