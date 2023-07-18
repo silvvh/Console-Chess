@@ -10,10 +10,11 @@ namespace Chess
             try
             {
                 ChessBoard b = new ChessBoard();
-                b.InsertPiece(new Position(0, 0), new Bishop(Colors.Black, b));
+                b.InsertPiece(new Position(0, 2), new Bishop(Colors.Black, b));
                 b.InsertPiece(new Position(0, 0), new Queen(Colors.Black, b));
                 for (int i = 0; i < 8; i++)
                 {
+                    Console.Write(8 - i);
                     for (int j = 0; j < 8; j++)
                     {
                         if (b.GetPiece(i, j) == null)
