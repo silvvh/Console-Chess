@@ -5,35 +5,39 @@ namespace Chess
 {
     class Screen
     {
-        public static void Create()
+        public static void Create(ChessBoard b)
         {
-            try
+            for (int i = 0; i < 8; i++)
             {
-                ChessBoard b = new ChessBoard();
-                b.InsertPiece(new Position(0, 2), new Bishop(Colors.Black, b));
-                b.InsertPiece(new Position(0, 0), new Queen(Colors.Black, b));
-                for (int i = 0; i < 8; i++)
+                Console.Write(8 - i);
+                for (int j = 0; j < 8; j++)
                 {
-                    Console.Write(8 - i);
-                    for (int j = 0; j < 8; j++)
+                    if (b.GetPiece(i, j) == null)
                     {
-                        if (b.GetPiece(i, j) == null)
-                        {
-                            Console.Write(" - ");
-                        }
-                        else
-                        {
-                            Console.Write(b.GetPiece(i, j));
-                        }
+                        Console.Write(" - ");
                     }
-
-                    Console.Write("\n");
+                    else
+                    {
+                        PrintPiece(b.GetPiece(i,j));
+                    }
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("  a  b  c  d  e  f  g  h ");
+            }
+        public static void PrintPiece(Piece p)
+                {
+                    if (p.Color == Colors.White)
+                    {
+                        Console.WriteLine(p);
+                    }
+                    else
+                    {
+                        ConsoleColor aux = Console.ForegroundColor;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write(p);
+                        Console.ForegroundColor = aux;
+                    }
                 }
             }
-            catch (BoardException e)
-            {
-                Console.WriteLine("Position error: " + e.Message);
-            }
         }
-    }
-}
