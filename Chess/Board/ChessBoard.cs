@@ -35,6 +35,19 @@ namespace Chess.Board
             piece.Pos = position;
         }
 
+        public Piece RemovePiece(Position position)
+        {
+            if (GetPiece(position) == null)
+            {
+                return null;
+            }
+
+            Piece aux = GetPiece(position);
+            aux.Pos = null;
+            Pieces[position.Line, position.Row] = null;
+            return aux;
+        }
+
         public bool FreePosition(Position pos)
         {
             ValidPosition(pos);

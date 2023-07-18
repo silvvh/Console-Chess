@@ -18,5 +18,10 @@ namespace Chess.Board
             Board = board;
             Moves = 0;
         }
+
+        public void MovesIncrease()
+        {
+            Moves++;
+        }
     }
 }

@@ -18,26 +18,26 @@ namespace Chess
                     }
                     else
                     {
-                        PrintPiece(b.GetPiece(i,j));
+                        PrintPiece(b.GetPiece(i, j));
                     }
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("  a  b  c  d  e  f  g  h ");
-            }
+        }
         public static void PrintPiece(Piece p)
-                {
-                    if (p.Color == Colors.White)
-                    {
-                        Console.WriteLine(p);
-                    }
-                    else
-                    {
-                        ConsoleColor aux = Console.ForegroundColor;
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write(p);
-                        Console.ForegroundColor = aux;
-                    }
-                }
+        {
+            if (p.Color == Colors.White)
+            {
+                Console.WriteLine(p);
+            }
+            else
+            {
+                ConsoleColor aux = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(p);
+                Console.ForegroundColor = aux;
             }
         }
+    }
+}
