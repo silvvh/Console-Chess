@@ -25,10 +25,24 @@ namespace Chess.Board
             return p == null || p.Color != Color;
         }
 
+ 
 
         public void MovesIncrease()
         {
             Moves++;
+        }
+
+        public bool HasPossibleMoves()
+        {
+            bool[,] possibleMoves = PossibleMoves();
+            foreach (bool possible in possibleMoves)
+            {
+                if (possible)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public abstract bool[,] PossibleMoves();

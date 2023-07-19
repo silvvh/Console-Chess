@@ -51,7 +51,7 @@ namespace Chess
             {
                 if (p.Color == Colors.White)
                 {
-                    Console.WriteLine(p);
+                    Console.Write(p);
                 }
                 else
                 {
