@@ -11,11 +11,7 @@ using Chess.ChessGame;
         try
         {
             Console.Clear();
-            Screen.Create(match.Board);
-            Console.WriteLine();
-            Console.WriteLine($"Turn: {match.Turn}");
-            Console.WriteLine($"Waiting for move: {match.ActualPlayer}");
-            Console.WriteLine();
+            Screen.PrintMatch(match);
             Console.Write("Initial Position: ");
             Position origin = Screen.ReadChessPosition().ToPosition();
             match.ValidateOriginPosition(origin);

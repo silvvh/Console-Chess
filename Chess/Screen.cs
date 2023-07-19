@@ -1,10 +1,46 @@
 ﻿using Chess.Board;
 using Chess.ChessGame;
+using System.Text.RegularExpressions;
+using Match = Chess.ChessGame.Match;
 
 namespace Chess
 {
     class Screen
     {
+        public static void PrintMatch(Match match)
+        {
+            Screen.Create(match.Board);
+            Console.WriteLine();
+            PrintCaptured(match);
+            Console.WriteLine();
+            Console.WriteLine($"Turn: {match.Turn}");
+            Console.WriteLine($"Waiting for move: {match.ActualPlayer}");
+            Console.WriteLine();
+        }
+
+        public static void PrintCaptured(Match match)
+        {
+            Console.WriteLine("Captured pieces:");
+            Console.Write("Whites: ");
+            PrintSet(match.Captured(Colors.Black));
+            Console.WriteLine();
+            Console.Write("Blacks: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintSet(match.Captured(Colors.White));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+        }
+
+        public static void PrintSet(HashSet<Piece> set)
+        {
+            Console.Write("[");
+            foreach (Piece s in set)
+            {
+                Console.Write(s + " ");
+            }
+            Console.Write("]");
+        }
         public static void Create(ChessBoard b)
         {
             for (int i = 0; i < 8; i++)
@@ -12,7 +48,7 @@ namespace Chess
                 Console.Write(8 - i);
                 for (int j = 0; j < 8; j++)
                 {
-                   PrintPiece(b.GetPiece(i, j));
+                    PrintPiece(b.GetPiece(i, j));
                 }
                 Console.WriteLine();
             }
@@ -23,24 +59,24 @@ namespace Chess
         {
             ConsoleColor original = Console.ForegroundColor;
             for (int i = 0; i < 8; i++)
+            {
+                Console.Write(8 - i);
+                for (int j = 0; j < 8; j++)
                 {
-                    Console.Write(8 - i);
-                    for (int j = 0; j < 8; j++)
+                    if (possiblePos[i, j])
                     {
-                        if (possiblePos[i, j])
-                        {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = original;
-                        }
-                        PrintPiece(b.GetPiece(i, j));
+                        Console.ForegroundColor = ConsoleColor.Green;
                     }
-                    Console.WriteLine();
+                    else
+                    {
+                        Console.ForegroundColor = original;
+                    }
+                    PrintPiece(b.GetPiece(i, j));
                 }
-                Console.WriteLine("  a  b  c  d  e  f  g  h ");
+                Console.WriteLine();
             }
+            Console.WriteLine("  a  b  c  d  e  f  g  h ");
+        }
         public static void PrintPiece(Piece p)
         {
             if (p == null)
