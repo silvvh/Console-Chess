@@ -8,6 +8,11 @@ public class Knight : Piece
     {
     }
 
+    public override bool[,] PossibleMoves()
+    {
+        throw new NotImplementedException();
+    }
+
     public override string ToString()
     {
         return " K ";

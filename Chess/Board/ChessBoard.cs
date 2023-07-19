@@ -4,8 +4,8 @@ namespace Chess.Board
 {
     public class ChessBoard
     {
-        private int Lines { get ; set; }
-        private int Rows { get; set; }
+        public int Lines { get ; set; }
+        public int Rows { get; set; }
         private Piece[,] Pieces { get; set; }
 
         public ChessBoard()

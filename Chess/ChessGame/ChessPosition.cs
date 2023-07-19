@@ -12,7 +12,7 @@ namespace Chess.ChessGame
         public int Line { get; set; }
         public char Row { get; set; }
 
-        public ChessPosition(int line, char row)
+        public ChessPosition(char row, int line)
         {
             Line = line;
             Row = row;

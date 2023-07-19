@@ -8,6 +8,11 @@ public class Bishop : Piece
     {
     }
 
+    public override bool[,] PossibleMoves()
+    {
+        throw new NotImplementedException();
+    }
+
     public override string ToString()
     {
         return " B ";

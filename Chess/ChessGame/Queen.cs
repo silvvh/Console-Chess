@@ -8,6 +8,11 @@ public class Queen : Piece
     {
     }
 
+    public override bool[,] PossibleMoves()
+    {
+        throw new NotImplementedException();
+    }
+
     public override string ToString()
     {
         return " Q ";

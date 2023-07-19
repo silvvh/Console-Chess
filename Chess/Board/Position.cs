@@ -12,6 +12,12 @@ namespace Chess.Board
             Line = line;
             Row = row;
         }
+
+        public void DefValues(int line, int row)
+        {
+            Line = line;
+            Row = row;
+        }
         public override string ToString()
         {
             return $"{Line}, {Row}";

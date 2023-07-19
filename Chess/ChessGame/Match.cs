@@ -12,12 +12,15 @@ namespace Chess.ChessGame
         public ChessBoard Board { get; }
         private int Turn { get; set; }
         private Colors ActualPlayer { get; set; }
+        public bool Finished { get; set; }
 
         public Match()
         {
             Board = new ChessBoard();
             Turn = 1;
             ActualPlayer = Colors.White;
+            Finished = false;
+            InsertPieces();
         }
 
         public void MoveTo(Position initial, Position destiny)
@@ -30,9 +33,9 @@ namespace Chess.ChessGame
 
         private void InsertPieces()
         {
-            Board.InsertPiece(new ChessPosition(1, 'c').ToPosition(), new Rook(Colors.Black, Board));
-            Board.InsertPiece(new ChessPosition(1, 'd').ToPosition(), new King(Colors.Black, Board));
-            Board.InsertPiece(new ChessPosition(1, 'e').ToPosition(), new Rook(Colors.Black, Board));
+            Board.InsertPiece(new ChessPosition('c', 1).ToPosition(), new Rook(Colors.Black, Board));
+            Board.InsertPiece(new ChessPosition('d', 1).ToPosition(), new King(Colors.Black, Board));
+            Board.InsertPiece(new ChessPosition('e', 1).ToPosition(), new Rook(Colors.Black, Board));
         }
     }
 }
