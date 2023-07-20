@@ -32,6 +32,11 @@ namespace Chess.Board
             Moves++;
         }
 
+        public void MovesDecrease()
+        {
+            Moves--;
+        }
+
         public bool HasPossibleMoves()
         {
             bool[,] possibleMoves = PossibleMoves();

@@ -13,7 +13,7 @@ public class Rook : Piece
         bool[,] possibleMoves = new bool[Board.Lines, Board.Rows];
         Position p = new Position(0, 0);
         // Up
-        p.DefValues(Pos.Line - 1, Pos.Row);
+        p.DefValues(Pos.Line -1, Pos.Row);
         while (Board.ValidPosition(p) && canMoveTo(p))
         {
             possibleMoves[p.Line, p.Row] = true;
@@ -47,7 +47,7 @@ public class Rook : Piece
             p.Row--;
         }
         // Right
-        p.DefValues(Pos.Line + 1, Pos.Row);
+        p.DefValues(Pos.Line, Pos.Row + 1);
         while (Board.ValidPosition(p) && canMoveTo(p))
         {
             possibleMoves[p.Line, p.Row] = true;

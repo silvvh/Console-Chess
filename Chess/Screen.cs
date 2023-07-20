@@ -16,18 +16,22 @@ namespace Chess
             Console.WriteLine($"Turn: {match.Turn}");
             Console.WriteLine($"Waiting for move: {match.ActualPlayer}");
             Console.WriteLine();
+            if (match.Check)
+            {
+                Console.WriteLine("CHECK!");
+            }
         }
 
         public static void PrintCaptured(Match match)
         {
             Console.WriteLine("Captured pieces:");
             Console.Write("Whites: ");
-            PrintSet(match.Captured(Colors.Black));
+            PrintSet(match.Captured(Colors.White));
             Console.WriteLine();
             Console.Write("Blacks: ");
             ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
-            PrintSet(match.Captured(Colors.White));
+            PrintSet(match.Captured(Colors.Black));
             Console.ForegroundColor = aux;
             Console.WriteLine();
         }

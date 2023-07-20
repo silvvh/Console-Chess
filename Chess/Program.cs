@@ -22,6 +22,7 @@ using Chess.ChessGame;
             Position destiny = Screen.ReadChessPosition().ToPosition();
             match.ValidateDestinyPosition(origin, destiny);
             match.MakesMove(origin, destiny);
+
         }
         catch (BoardException e)
         {

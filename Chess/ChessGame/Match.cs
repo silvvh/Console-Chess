@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace Chess.ChessGame
         private HashSet<Piece> Pieces { get; }
         private HashSet<Piece> CapturedPieces { get; }
 
+        public bool Check { get; private set; }
+
         public Match()
         {
             Board = new ChessBoard();
@@ -24,10 +27,11 @@ namespace Chess.ChessGame
             Finished = false;
             Pieces = new HashSet<Piece>();
             CapturedPieces = new HashSet<Piece>();
+            Check = false;
             InsertPieces();
         }
 
-        public void MoveTo(Position initial, Position destiny)
+        public Piece MoveTo(Position initial, Position destiny)
         {
             Piece p = Board.RemovePiece(initial);
             p.MovesIncrease();
@@ -37,6 +41,7 @@ namespace Chess.ChessGame
             {
                 CapturedPieces.Add(capturedPiece);
             }
+            return capturedPiece;
         }
 
         public HashSet<Piece> Captured(Colors color)
@@ -44,7 +49,7 @@ namespace Chess.ChessGame
             HashSet<Piece> aux = new HashSet<Piece>();
             foreach (Piece piece in CapturedPieces)
             {
-                if (color != piece.Color)
+                if (color == piece.Color)
                 {
                     aux.Add(piece);
                 }
@@ -52,12 +57,54 @@ namespace Chess.ChessGame
             return aux;
         }
 
+        private Colors OppositeColor(Colors color)
+        {
+            if (color == Colors.White)
+            {
+                return Colors.Black;
+            }
+            return Colors.White;
+        }
+
+        private Piece IsKing(Colors color)
+        {
+            foreach (Piece p in InMatchPieces(color))
+            {
+                if (p is King)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        public bool IsInCheck(Colors color)
+        {
+            Piece king = IsKing(color); 
+            if (king == null)
+            {
+                throw new BoardException(".");
+            }
+            foreach (Piece p in InMatchPieces(OppositeColor(color)))
+            {
+                bool[,] m = p.PossibleMoves();
+                if (m[king.Pos.Line, king.Pos.Row])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public HashSet<Piece> InMatchPieces(Colors color)
         {
             HashSet<Piece> aux = new HashSet<Piece>();
             foreach (Piece piece in Pieces)
             {
-                aux.Add(piece);
+                if (piece.Color == color)
+                {
+                    aux.Add(piece);
+                }
             }
             aux.ExceptWith(Captured(color));
             return aux;
@@ -90,11 +137,36 @@ namespace Chess.ChessGame
 
         public void MakesMove(Position origin, Position destiny)
         {
-            MoveTo(origin, destiny);
+            Piece captured = MoveTo(origin, destiny);
+            if (IsInCheck(ActualPlayer))
+            {
+                CancelMove(origin, destiny, captured);
+                throw new BoardException("Impossible move, you are putting yourself in check!");
+            }
+
+            if (IsInCheck(OppositeColor(ActualPlayer)))
+            {
+                Check = true;
+            }
+            else
+            {
+                Check = false;
+            }
             Turn++;
             ChangePlayer();
         }
 
+        public void CancelMove(Position origin, Position destiny, Piece captured)
+        {
+            Piece p = Board.RemovePiece(destiny);
+            p.MovesDecrease();
+            if (captured != null)
+            {
+                Board.InsertPiece(destiny, captured);
+                CapturedPieces.Remove(captured);
+            }
+            Board.InsertPiece(origin, p);
+        }
         private void ChangePlayer()
         {
             if (ActualPlayer == Colors.Black)
