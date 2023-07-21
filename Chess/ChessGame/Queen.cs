@@ -16,11 +16,11 @@ public class Queen : Piece
         p.DefValues(Pos.Line - 1, Pos.Row + 1);
         while (Board.ValidPosition(p) && canMoveTo(p))
         {
+            possible[p.Line, p.Row] = true;
             if (Board.GetPiece(p) != null && Board.GetPiece(p).Color != Color)
             {
                 break;
             }
-            possible[p.Line, p.Row] = true;
             p.Line--;
             p.Row++;
         }
@@ -28,11 +28,11 @@ public class Queen : Piece
         p.DefValues(Pos.Line - 1, Pos.Row - 1);
         while (Board.ValidPosition(p) && canMoveTo(p))
         {
+            possible[p.Line, p.Row] = true;
             if (Board.GetPiece(p) != null && Board.GetPiece(p).Color != Color)
             {
                 break;
             }
-            possible[p.Line, p.Row] = true;
             p.Line--;
             p.Row--;
         }
@@ -40,11 +40,11 @@ public class Queen : Piece
         p.DefValues(Pos.Line + 1, Pos.Row - 1);
         while (Board.ValidPosition(p) && canMoveTo(p))
         {
+            possible[p.Line, p.Row] = true;
             if (Board.GetPiece(p) != null && Board.GetPiece(p).Color != Color)
             {
                 break;
             }
-            possible[p.Line, p.Row] = true;
             p.Line++;
             p.Row--;
         }
@@ -52,11 +52,11 @@ public class Queen : Piece
         p.DefValues(Pos.Line + 1, Pos.Row + 1);
         while (Board.ValidPosition(p) && canMoveTo(p))
         {
+            possible[p.Line, p.Row] = true;
             if (Board.GetPiece(p) != null && Board.GetPiece(p).Color != Color)
             {
                 break;
             }
-            possible[p.Line, p.Row] = true;
             p.Line++;
             p.Row++;
         }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Chess.Board;
 
 namespace Chess.ChessGame
@@ -71,11 +64,11 @@ namespace Chess.ChessGame
                     Position pawnPosition;
                     if (p.Color == Colors.White)
                     {
-                        pawnPosition = new Position(destiny.Line+1, destiny.Row);
+                        pawnPosition = new Position(destiny.Line + 1, destiny.Row);
                     }
                     else
                     {
-                        pawnPosition = new Position(destiny.Line-1, destiny.Row);
+                        pawnPosition = new Position(destiny.Line - 1, destiny.Row);
                     }
                     capturedPiece = Board.RemovePiece(pawnPosition);
                     CapturedPieces.Add(capturedPiece);
@@ -207,6 +200,8 @@ namespace Chess.ChessGame
         public void MakesMove(Position origin, Position destiny)
         {
             Piece captured = MoveTo(origin, destiny);
+            Piece p = Board.GetPiece(destiny);
+
             if (IsInCheck(ActualPlayer))
             {
                 CancelMove(origin, destiny, captured);
@@ -234,8 +229,18 @@ namespace Chess.ChessGame
 
             }
 
-            Piece p = Board.GetPiece(destiny);
-            
+            if (p is Pawn)
+            {
+                if (p.Color == Colors.White && destiny.Line == 0 || p.Color == Colors.Black && destiny.Line == 7)
+                {
+                    p = Board.RemovePiece(destiny);
+                    Pieces.Remove(p);
+                    Piece queen = new Queen(p.Color, Board);
+                    Board.InsertPiece(destiny,  queen);
+                    Pieces.Add(queen);
+                }
+            }
+
             if (p is Pawn && (destiny.Line == origin.Line + 2 || destiny.Line == origin.Line - 2))
             {
                 EnPassant = p;

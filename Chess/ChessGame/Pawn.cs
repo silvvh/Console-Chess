@@ -33,7 +33,7 @@ public class Pawn : Piece
                 possible[p.Line, p.Row] = true;
             }
             p.DefValues(Pos.Line - 2, Pos.Row);
-            if (Board.ValidPosition(p) && FreePosition(p))
+            if (Board.ValidPosition(p) && FreePosition(p) && Moves == 0)
             {
                 possible[p.Line, p.Row] = true;
             }
@@ -71,16 +71,16 @@ public class Pawn : Piece
                 possible[p.Line, p.Row] = true;
             }
             p.DefValues(Pos.Line + 2, Pos.Row);
-            if (Board.ValidPosition(p) && FreePosition(p))
+            if (Board.ValidPosition(p) && FreePosition(p) && Moves == 0)
             {
                 possible[p.Line, p.Row] = true;
             }
-            p.DefValues(Pos.Line + 1, Pos.Row);
+            p.DefValues(Pos.Line + 1, Pos.Row - 1);
             if (Board.ValidPosition(p) && HasEnemy(p))
             {
                 possible[p.Line, p.Row] = true;
             }
-            p.DefValues(Pos.Line + 1, Pos.Row);
+            p.DefValues(Pos.Line + 1, Pos.Row + 1);
             if (Board.ValidPosition(p) && HasEnemy(p))
             {
                 possible[p.Line, p.Row] = true;
