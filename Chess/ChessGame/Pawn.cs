@@ -4,8 +4,10 @@ namespace Chess.ChessGame;
 
 public class Pawn : Piece
 {
-    public Pawn(Colors color, ChessBoard board) : base(color, board)
+    private Match ChessMatch { get; set; }
+    public Pawn(Colors color, ChessBoard board, Match match) : base(color, board)
     {
+        ChessMatch = match;
     }
 
     public bool HasEnemy(Position Pos)
@@ -35,15 +37,30 @@ public class Pawn : Piece
             {
                 possible[p.Line, p.Row] = true;
             }
-            p.DefValues(Pos.Line - 1, Pos.Row+1);
+            p.DefValues(Pos.Line - 1, Pos.Row + 1);
             if (Board.ValidPosition(p) && HasEnemy(p))
             {
                 possible[p.Line, p.Row] = true;
             }
-            p.DefValues(Pos.Line - 1, Pos.Row-1);
+            p.DefValues(Pos.Line - 1, Pos.Row - 1);
             if (Board.ValidPosition(p) && HasEnemy(p))
             {
                 possible[p.Line, p.Row] = true;
+            }
+            // En Passant
+            if (Pos.Line == 3)
+            {
+                Position left = new Position(Pos.Line, Pos.Row - 1);
+                if (Board.ValidPosition(left) && HasEnemy(left) && Board.GetPiece(left) == ChessMatch.EnPassant)
+                {
+                    possible[left.Line - 1, left.Row] = true;
+                }
+
+                Position right = new Position(Pos.Line, Pos.Row + 1);
+                if (Board.ValidPosition(right) && HasEnemy(right) && Board.GetPiece(right) == ChessMatch.EnPassant)
+                {
+                    possible[right.Line - 1, right.Row] = true;
+                }
             }
         }
         else
@@ -67,6 +84,21 @@ public class Pawn : Piece
             if (Board.ValidPosition(p) && HasEnemy(p))
             {
                 possible[p.Line, p.Row] = true;
+            }
+            // En Passant
+            if (Pos.Line == 4)
+            {
+                Position left = new Position(Pos.Line, Pos.Row - 1);
+                if (Board.ValidPosition(left) && HasEnemy(left) && Board.GetPiece(left) == ChessMatch.EnPassant)
+                {
+                    possible[left.Line+1, left.Row] = true;
+                }
+
+                Position right = new Position(Pos.Line, Pos.Row + 1);
+                if (Board.ValidPosition(right) && HasEnemy(right) && Board.GetPiece(right) == ChessMatch.EnPassant)
+                {
+                    possible[right.Line+1, right.Row] = true;
+                }
             }
         }
         return possible;

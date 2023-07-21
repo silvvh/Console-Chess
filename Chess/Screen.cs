@@ -45,12 +45,12 @@ namespace Chess
 
         public static void PrintSet(HashSet<Piece> set)
         {
-            Console.Write("[");
+            Console.Write("|");
             foreach (Piece s in set)
             {
                 Console.Write(s + " ");
             }
-            Console.Write("]");
+            Console.Write("|");
         }
         public static void Create(ChessBoard b)
         {
