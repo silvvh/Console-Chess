@@ -10,11 +10,37 @@ public class Knight : Piece
 
     public override bool[,] PossibleMoves()
     {
-        throw new NotImplementedException();
+        bool[,] possible = new bool[8, 8];
+        Position p = new Position(0, 0);
+        // UP
+        p.DefValues(Pos.Line-2, Pos.Row+1);
+        if (Board.ValidPosition(p) && canMoveTo(p)) 
+        {
+            possible[p.Line, p.Row] = true;
+        }
+        // DOWN
+        p.DefValues(Pos.Line+2, Pos.Row+1);
+        if (Board.ValidPosition(p) && canMoveTo(p))
+        {
+            possible[p.Line, p.Row] = true;
+        }
+        // LEFT|UP
+        p.DefValues(Pos.Line-2, Pos.Row-1);
+        if (Board.ValidPosition(p) && canMoveTo(p))
+        {
+            possible[p.Line, p.Row] = true;
+        }
+        // LEFT|DOWN
+        p.DefValues(Pos.Line+2, Pos.Row-1);
+        if (Board.ValidPosition(p) && canMoveTo(p))
+        {
+            possible[p.Line, p.Row] = true;
+        }
+        return possible;
     }
 
     public override string ToString()
     {
-        return " K ";
+        return " H ";
     }
 }
