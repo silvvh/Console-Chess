@@ -30,4 +30,6 @@ using Chess.ChessGame;
             Console.ReadLine();
         }
     }
+    Console.Clear();
+    Screen.PrintMatch(match);
 }

@@ -80,7 +80,7 @@ namespace Chess.ChessGame
 
         public bool IsInCheck(Colors color)
         {
-            Piece king = IsKing(color); 
+            Piece king = IsKing(color);
             if (king == null)
             {
                 throw new BoardException(".");
@@ -94,6 +94,35 @@ namespace Chess.ChessGame
                 }
             }
             return false;
+        }
+
+        public bool IsInCheckMate(Colors color)
+        {
+            if (!IsInCheck(color)) { return false; }
+
+            foreach (Piece p in InMatchPieces(color))
+            {
+                bool[,] m = p.PossibleMoves();
+                for (int i = 0; i < Board.Lines; i++)
+                {
+                    for (int j = 0; j < Board.Rows; j++)
+                    {
+                        if (m[i, j])
+                        {
+                            Position origin = p.Pos;
+                            Position destiny = new Position(i, j);
+                            Piece captured = MoveTo(origin, destiny);
+                            bool checkTest = IsInCheck(color);
+                            CancelMove(origin, destiny, captured);
+                            if (!checkTest)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public HashSet<Piece> InMatchPieces(Colors color)
@@ -152,13 +181,25 @@ namespace Chess.ChessGame
             {
                 Check = false;
             }
-            Turn++;
-            ChangePlayer();
+
+            if (IsInCheckMate(OppositeColor(ActualPlayer)))
+            {
+                Finished = true;
+            }
+
+            else
+            {
+                Turn++;
+                ChangePlayer();
+
+            }
+
         }
 
         public void CancelMove(Position origin, Position destiny, Piece captured)
         {
             Piece p = Board.RemovePiece(destiny);
+
             p.MovesDecrease();
             if (captured != null)
             {
@@ -186,11 +227,12 @@ namespace Chess.ChessGame
         }
         private void InsertPieces()
         {
-            InsertNewPiece('c', 1, new Rook(Colors.Black, Board));
-            InsertNewPiece('d', 1, new King(Colors.Black, Board));
-            InsertNewPiece('e', 1, new Rook(Colors.Black, Board));
-            InsertNewPiece('e', 8, new Rook(Colors.White, Board));
-            InsertNewPiece('d', 8, new King(Colors.White, Board));
+            InsertNewPiece('c', 1, new Rook(Colors.White, Board));
+            InsertNewPiece('d', 1, new King(Colors.White, Board));
+            InsertNewPiece('h', 7, new Rook(Colors.White, Board));
+            InsertNewPiece('a', 8, new King(Colors.Black, Board));
+            InsertNewPiece('b', 8, new Rook(Colors.Black, Board));
+
         }
     }
 }

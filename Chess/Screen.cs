@@ -14,11 +14,18 @@ namespace Chess
             PrintCaptured(match);
             Console.WriteLine();
             Console.WriteLine($"Turn: {match.Turn}");
-            Console.WriteLine($"Waiting for move: {match.ActualPlayer}");
-            Console.WriteLine();
-            if (match.Check)
+            if (!match.Finished)
             {
-                Console.WriteLine("CHECK!");
+                Console.WriteLine($"Waiting for move: {match.ActualPlayer}");
+                Console.WriteLine();
+                if (match.Check)
+                {
+                    Console.WriteLine("CHECK!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("CHECKMATE!");
             }
         }
 
@@ -61,7 +68,8 @@ namespace Chess
 
         public static void Create(ChessBoard b, bool[,] possiblePos)
         {
-            ConsoleColor original = Console.ForegroundColor;
+            ConsoleColor original = Console.BackgroundColor;
+            ConsoleColor altered = ConsoleColor.DarkGray;
             for (int i = 0; i < 8; i++)
             {
                 Console.Write(8 - i);
@@ -69,13 +77,14 @@ namespace Chess
                 {
                     if (possiblePos[i, j])
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.BackgroundColor = altered;
                     }
                     else
                     {
-                        Console.ForegroundColor = original;
+                        Console.BackgroundColor = original;
                     }
                     PrintPiece(b.GetPiece(i, j));
+                    Console.BackgroundColor = original;
                 }
                 Console.WriteLine();
             }
