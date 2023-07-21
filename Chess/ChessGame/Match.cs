@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
@@ -41,6 +42,24 @@ namespace Chess.ChessGame
             if (capturedPiece != null)
             {
                 CapturedPieces.Add(capturedPiece);
+            }
+            // Short Castling
+            if (p is King && destiny.Row == initial.Row + 2)
+            {
+                Position initialR = new Position(initial.Line, initial.Row + 3);
+                Position destinyR = new Position(initial.Line, initial.Row + 1);
+                Piece R = Board.RemovePiece(initialR);
+                R.MovesIncrease();
+                Board.InsertPiece(destinyR, R);
+            }
+            // Long Castling
+            if (p is King && destiny.Row == initial.Row - 2)
+            {
+                Position initialR = new Position(initial.Line, initial.Row - 4);
+                Position destinyR = new Position(initial.Line, initial.Row - 1);
+                Piece R = Board.RemovePiece(initialR);
+                R.MovesIncrease();
+                Board.InsertPiece(destinyR, R);
             }
             return capturedPiece;
         }
@@ -201,6 +220,27 @@ namespace Chess.ChessGame
         {
             Piece p = Board.RemovePiece(destiny);
 
+            if (p is King && destiny.Row == origin.Row + 2)
+            {
+                {
+                    Position initialR = new Position(origin.Line, origin.Row + 3);
+                    Position destinyR = new Position(origin.Line, origin.Row + 1);
+                    Piece R = Board.RemovePiece(destinyR);
+                    R.MovesDecrease();
+                    Board.InsertPiece(origin, R);
+                }
+            }
+
+            if (p is King && destiny.Row == origin.Row - 2)
+            {
+                {
+                    Position initialR = new Position(origin.Line, origin.Row - 4);
+                    Position destinyR = new Position(origin.Line, origin.Row - 1);
+                    Piece R = Board.RemovePiece(destinyR);
+                    R.MovesDecrease();
+                    Board.InsertPiece(origin, R);
+                }
+            }
             p.MovesDecrease();
             if (captured != null)
             {
@@ -226,13 +266,14 @@ namespace Chess.ChessGame
             Board.InsertPiece(new ChessPosition(row, line).ToPosition(), piece);
             Pieces.Add(piece);
         }
-        private void InsertPieces() {
-        
+        private void InsertPieces()
+        {
+
             InsertNewPiece('a', 1, new Rook(Colors.White, Board));
             InsertNewPiece('b', 1, new Knight(Colors.White, Board));
             InsertNewPiece('c', 1, new Bishop(Colors.White, Board));
             InsertNewPiece('d', 1, new Queen(Colors.White, Board));
-            InsertNewPiece('e', 1, new King(Colors.White, Board));
+            InsertNewPiece('e', 1, new King(Colors.White, Board, this));
             InsertNewPiece('f', 1, new Bishop(Colors.White, Board));
             InsertNewPiece('g', 1, new Knight(Colors.White, Board));
             InsertNewPiece('h', 1, new Rook(Colors.White, Board));
@@ -244,12 +285,12 @@ namespace Chess.ChessGame
             InsertNewPiece('f', 2, new Pawn(Colors.White, Board));
             InsertNewPiece('g', 2, new Pawn(Colors.White, Board));
             InsertNewPiece('h', 2, new Pawn(Colors.White, Board));
-                
-            InsertNewPiece('a', 8, new Pawn(Colors.Black, Board));
+
+            InsertNewPiece('a', 8, new Rook(Colors.Black, Board));
             InsertNewPiece('b', 8, new Knight(Colors.Black, Board));
             InsertNewPiece('c', 8, new Bishop(Colors.Black, Board));
             InsertNewPiece('d', 8, new Queen(Colors.Black, Board));
-            InsertNewPiece('e', 8, new King(Colors.Black, Board));
+            InsertNewPiece('e', 8, new King(Colors.Black, Board, this));
             InsertNewPiece('f', 8, new Bishop(Colors.Black, Board));
             InsertNewPiece('g', 8, new Knight(Colors.Black, Board));
             InsertNewPiece('h', 8, new Rook(Colors.Black, Board));
@@ -261,7 +302,7 @@ namespace Chess.ChessGame
             InsertNewPiece('f', 7, new Pawn(Colors.Black, Board));
             InsertNewPiece('g', 7, new Pawn(Colors.Black, Board));
             InsertNewPiece('h', 7, new Pawn(Colors.Black, Board));
-                
+
         }
     }
 }
