@@ -1,18 +1,19 @@
 # Console-Chess
-This is a chess project developed to be played directly in the terminal. The game is written in C#, using the basic concepts of the chess game.
+Este é um projeto de xadrez desenvolvido para ser jogado diretamente no terminal. O jogo é escrito em C#, usando os conceitos básicos do jogo de xadrez e os recursos do paradigma orientado a objetos.
 
-## How to Play
+## Como Jogar
 
-1. Clone this repository to your computer.
-2. Open the terminal and navigate to the project folder.
-3. Compile the source code.
-4. Run the chess game program.
-5. Follow the instructions presented in the terminal to play.
+1. Clone este repositório para o seu computador.
+2. Abra o terminal e navegue até a pasta do projeto.
+3. Compile o código-fonte.
+4. Execute o programa de jogo de xadrez.
+5. Siga as instruções apresentadas no terminal para jogar.
 
-## Features
+## Funcionalidades
 
-The terminal chess game includes the following features:
+O jogo de xadrez no terminal inclui as seguintes funcionalidades:
 
-- Legal movements of pieces according to the rules of chess.
-- Check and checkmate detection.
-- Handling of invalid moves and notification to the player.
+- Movimentos legais das peças de acordo com as regras do xadrez.
+- Detecção de xeque e xeque-mate.
+- Tratamento de movimentos inválidos e notificação ao jogador.
+- Jogadas especiais (roque, en passant, promoção)
